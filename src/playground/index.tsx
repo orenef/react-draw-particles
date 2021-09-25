@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Base } from '../Base';
+import { ParticlesText } from '../ParticlesText';
 ReactDOM.render(
-  <Base />,
+  <ParticlesText />,
   document.getElementById('root'),
 );

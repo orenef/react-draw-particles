@@ -6,30 +6,47 @@ interface Props {
 	width?: number;
 	height?: number;
 	colors?: string[];
-	text?: string;
+	svg?: any;
 }
 
-export const ParticlesText: React.FC<Props> = ({
+function createImage(path: string) {
+	return new Promise((resolve, reject) => {
+		const img = new Image();
+		img.onload = () => resolve(img);
+		img.onerror = () => reject({path, status: 'error'});
+		img.src = path;
+	});
+}
+
+export const ParticlesSvg: React.FC<Props> = ({
 	width = window.innerWidth,
 	height = window.innerHeight,
 	colors = ['#700146','#7d0186', '#8c00ff','#e55785'],
-	text = 'Particles'
+	svg = undefined,
 }) => {
+
 	const canvasRef =  React.useRef(null);
 	const amount =  React.useRef(0);
+	const [errorLoading, setErrorLoading] = React.useState(false);
 	let particles: Particle[] = [];
 	
-	function init() {
-		if (!canvasRef || !canvasRef.current) {
+	async function init() {
+		if (!canvasRef || !canvasRef.current || !svg || errorLoading) {
 			return;
 		}
 		const context = (canvasRef.current as any).getContext('2d');
 		context.clearRect(0, 0, (canvasRef.current as any).width, (canvasRef.current as any).height);
 
-		context.font = `bold ${width/10}px sans-serif`;
-		context.textAlign = "center";
-		context.fillText(text, width/2, height/2);
-	  
+		const src = "data:image/svg+xml," + encodeURIComponent(svg);
+		let img : any = undefined;
+		try {
+			img = await createImage(src);
+		} catch (error) {
+			setErrorLoading(true);
+			return;
+		}
+		context.drawImage(img, width/2 - (img.width/2), height/2 - (img.height/2), img.width, img.height);
+	
 		const data  = context.getImageData(0, 0, width, height).data;
 		context.clearRect(0, 0, (canvasRef.current as any).width, (canvasRef.current as any).height);
 		context.globalCompositeOperation = "screen";
@@ -63,8 +80,8 @@ export const ParticlesText: React.FC<Props> = ({
 	},[]);
 
 	return (
-		<div className="react-text-particles">
-			<canvas id="particles-text-canvas" width={width} height={height} ref={canvasRef} />
+		<div className="react-svg-particles">
+			<canvas id="particles-svg-canvas" width={width} height={height} ref={canvasRef} />
 		</div>
 	)
 }

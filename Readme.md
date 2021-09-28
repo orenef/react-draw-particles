@@ -1,8 +1,11 @@
 # react-draw-particles
+![npm](https://img.shields.io/npm/v/react-draw-particles) ![npm bundle size](https://img.shields.io/bundlephobia/min/react-draw-particles) ![GitHub top language](https://img.shields.io/github/languages/top/orenef/react-draw-particles) ![npm](https://img.shields.io/npm/dt/react-draw-particles) ![NPM](https://img.shields.io/npm/l/react-draw-particles) ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/orenef/react-draw-particles)
+
+[![draw.png](https://i.postimg.cc/vHLrRksb/draw.png)](https://postimg.cc/XpqGd2qz)
 
 react-draw-particles is a react base component for drawing text and svg using particles
 
-[ParticlesText](https://codesandbox.io/s/react-draw-particles-ftje0)
+[Demo ParticlesText](https://codesandbox.io/s/react-draw-particles-ftje0)
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/package/react-draw-particles) to install .
